@@ -1,6 +1,6 @@
 {
   "name": "snugger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CLI tool to create express+TypeScript API Projects.",
   "main": "./dist/index.js",
   "bin": {
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/souvik-wizard/xsyst.git"
+    "url": "https://github.com/The-Finding-Labs/snugger.git"
   },
   "keywords": [
     "CLI",
@@ -32,16 +32,16 @@
     "API",
     "backend-template"
   ],
-  "author": "Souvik Das",
+  "author": "Tuhin Bar",
   "contributors": [
-    "Tuhin Bar (https://github.com/TuhinBar)",
+    "Souvik Das (https://github.com/souvik-wizard)",
     "Priyadarsi Halder (https://github.com/PriyoRaven)"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/souvik-wizard/xsyst/issues"
+    "url": "https://github.com/The-Finding-Labs/snugger/issues"
   },
-  "homepage": "https://github.com/souvik-wizard/xsyst#readme",
+  "homepage": "https://github.com/The-Finding-Labs/snugger#readme",
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
