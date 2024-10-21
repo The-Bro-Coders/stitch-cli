@@ -1,8 +1,9 @@
 import { Command } from "commander";
 import Logger from "./lib/logger.js";
 import Commands from "./commands/commands.js";
+import { getVersion } from "./lib/utils.js";
 
-const VERSION = "0.1.2";
+const VERSION = await getVersion();
 
 class SnuggerCLI {
   private logger: Logger;
@@ -34,7 +35,7 @@ class SnuggerCLI {
 
   run() {
     if (!process.argv.slice(2).length) {
-      this.logger.log("-| Snugger CLI |-");
+      this.logger.log("-| Snugger CLI |-\n");
       this.program.outputHelp();
     } else {
       this.logger.log("-| Snugger CLI |-\n");
@@ -47,3 +48,6 @@ class SnuggerCLI {
 }
 
 export default SnuggerCLI;
+
+const snugger = new SnuggerCLI();
+snugger.run();

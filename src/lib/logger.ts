@@ -24,9 +24,9 @@ class Logger {
     return logMessage;
   }
 
-  error(message: string): string {
+  error(message: string, error?: any): string {
     const logMessage = ` [ERROR] ${message}`;
-    console.log(chalk.red(logMessage));
+    console.log(chalk.red(logMessage + "\n" + error?.message));
     return logMessage;
   }
 }
