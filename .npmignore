@@ -7,7 +7,6 @@ tests/
 LICENSE
 
 node_modules
-dist
 *.tsbuildinfo
 
 tsconfig.json

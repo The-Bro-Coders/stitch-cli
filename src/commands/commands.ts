@@ -32,7 +32,10 @@ class Commands {
         },
       ]);
 
-      const templateDir = path.join(__dirname, "../templates/snugger-app");
+      const templateDir = path.resolve(
+        __dirname,
+        "../../templates/snugger-app",
+      );
       if (!templateDir) {
         this.logger.error("Template directory not found");
         return;
@@ -46,10 +49,10 @@ class Commands {
       const isSuccess = await copyTemplateFiles(fs, templateDir, projectDir);
 
       if (isSuccess) {
-        spinner.succeed("Project created successfully");
+        spinner.succeed("\nProject created successfully");
       }
     } catch (error) {
-      this.logger.error("Error creating project", error);
+      this.logger.error("\nError creating project", error);
     }
   }
 }
