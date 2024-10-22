@@ -48,3 +48,9 @@ class SnuggerCLI {
 }
 
 export default SnuggerCLI;
+
+// For local testing only
+// Comment before pushing
+
+// const cli = new SnuggerCLI();
+// cli.run();

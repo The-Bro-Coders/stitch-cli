@@ -1,6 +1,6 @@
 {
   "name": "snugger",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "A CLI tool to create express+TypeScript API Projects.",
   "type": "module",
   "main": "./dist/index.js",
@@ -9,8 +9,7 @@
   },
   "files": [
     "dist",
-    "bin",
-    "templates"
+    "bin"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

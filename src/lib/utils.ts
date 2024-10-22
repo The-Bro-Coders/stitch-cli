@@ -32,3 +32,34 @@ export const copyTemplateFiles = async (
     console.error("Error copying template files", error);
   }
 };
+
+export const getPackageJsonContent = (projectName: string) => {
+  return {
+    name: projectName,
+    version: "1.0.0",
+    main: "index.js",
+    scripts: {
+      test: 'echo "Error: no test specified" && exit 1',
+      dev: "nodemon --exec ts-node app.ts",
+      build: "tsc",
+      start: "node dist/app.js",
+    },
+    keywords: [],
+    author: "",
+    license: "ISC",
+    description: "",
+    dependencies: {
+      cors: "^2.8.5",
+      dotenv: "^16.4.5",
+      express: "^4.21.1",
+      mongoose: "^8.7.2",
+    },
+    devDependencies: {
+      "@types/express": "^4.17.17",
+      "@types/cors": "^2.8.17",
+      "@types/node": "^20.6.0",
+      "ts-node": "^10.9.2",
+      typescript: "^5.6.3",
+    },
+  };
+};
