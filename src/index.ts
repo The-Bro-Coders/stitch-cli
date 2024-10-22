@@ -48,6 +48,3 @@ class SnuggerCLI {
 }
 
 export default SnuggerCLI;
-
-const snugger = new SnuggerCLI();
-snugger.run();
