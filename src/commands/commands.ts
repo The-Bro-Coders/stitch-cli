@@ -4,10 +4,13 @@ import Logger from "../lib/logger.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import ora from "ora";
-import { execSync } from "child_process";
+import { exec } from "child_process";
 import { copyTemplateFiles, getPackageJsonContent } from "../lib/utils.js";
+import { promisify } from "util";
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
+
+const execPromise = promisify(exec);
 
 class Commands {
   private logger: Logger;
@@ -29,7 +32,7 @@ class Commands {
           type: "confirm",
           name: "installDeps",
           message: "Would you like to install dependencies?",
-          default: true,
+          default: false,
         },
       ]);
 
@@ -42,8 +45,9 @@ class Commands {
       const spinner = ora("Creating project...").start();
 
       spinner.color = "blue";
-      execSync(`git clone ${templateRepo} ${projectName}`);
-      execSync(`rm -rf ${projectName}/.git`);
+      await execPromise(`git clone ${templateRepo} ${projectName}`);
+      const gitDir = path.join(projectDir, ".git");
+      await fs.remove(gitDir);
 
       spinner.text = "Creating package...\n";
       spinner.color = "green";
@@ -57,7 +61,7 @@ class Commands {
       if (answers.installDeps) {
         spinner.text = "Installing dependencies...\n";
         spinner.color = "yellow";
-        execSync(`cd ${projectName} && npm install`);
+        await execPromise(`cd ${projectName} && npm install`);
       }
 
       spinner.stop();
@@ -72,6 +76,7 @@ class Commands {
         "Check if any devDependencies are missing and install them manually",
       );
     } catch (error) {
+      ora().fail();
       this.logger.error("\nError creating project", error);
     }
   }
