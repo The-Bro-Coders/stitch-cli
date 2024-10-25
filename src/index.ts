@@ -2,13 +2,14 @@ import { Command } from "commander";
 import Logger from "./lib/logger.js";
 import Commands from "./commands/commands.js";
 import { getVersion } from "./lib/utils.js";
+import { Snugger } from "./types/index.js";
 
 const VERSION = await getVersion();
 
-class SnuggerCLI {
-  private logger: Logger;
-  private program: Command;
-  private version: string;
+class SnuggerCLI implements Snugger {
+  public logger: Logger;
+  public program: Command;
+  public version: string;
 
   constructor() {
     this.logger = new Logger();
@@ -18,7 +19,7 @@ class SnuggerCLI {
     this.setupCommands();
   }
 
-  private setupCommands() {
+  public setupCommands() {
     this.program
       .version(this.version, "-v, --version", "Output the current version")
       .description(
