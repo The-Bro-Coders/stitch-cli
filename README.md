@@ -107,7 +107,7 @@ It will create a new project in a directory named `express-typescript-api` with 
 
 ```bash
 {
-  "name": "safe-fb",
+  "name": "express-typescript-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
