@@ -1,5 +1,15 @@
+src/
+tests/
+*.ts
+*.map
+*.log
+*.test.ts
+LICENSE
+
 node_modules
+*.tsbuildinfo
 
-test
+tsconfig.json
 
-scripts
+package-lock.json
+yarn.lock

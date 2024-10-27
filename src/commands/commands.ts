@@ -4,9 +4,13 @@ import Logger from "../lib/logger.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import ora from "ora";
-import { copyTemplateFiles } from "../lib/utils.js";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { exec } from "child_process";
+import { copyTemplateFiles, getPackageJsonContent } from "../lib/utils.js";
+import { promisify } from "util";
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+const execPromise = promisify(exec);
 
 class Commands {
   private logger: Logger;
@@ -28,28 +32,52 @@ class Commands {
           type: "confirm",
           name: "installDeps",
           message: "Would you like to install dependencies?",
-          default: true,
+          default: false,
         },
       ]);
 
-      const templateDir = path.join(__dirname, "../templates/snugger-app");
-      if (!templateDir) {
-        this.logger.error("Template directory not found");
-        return;
-      }
+      const templateRepo =
+        "https://github.com/The-Finding-Labs/snugger-template.git";
 
-      const projectDir = path.join(process.cwd(), answers.projectName);
+      const projectName = answers.projectName;
 
-      const spinner = ora("Creating project").start();
+      const projectDir = path.join(process.cwd(), projectName);
+      const spinner = ora("Creating project...").start();
+
       spinner.color = "blue";
+      await execPromise(`git clone ${templateRepo} ${projectName}`);
+      const gitDir = path.join(projectDir, ".git");
+      await fs.remove(gitDir);
 
-      const isSuccess = await copyTemplateFiles(fs, templateDir, projectDir);
+      spinner.text = "Creating package...\n";
+      spinner.color = "green";
 
-      if (isSuccess) {
-        spinner.succeed("Project created successfully");
+      const packageJsonContent = getPackageJsonContent(projectName);
+
+      const packageJsonPath = path.join(projectDir, "package.json");
+
+      await fs.writeJson(packageJsonPath, packageJsonContent, { spaces: 2 });
+
+      if (answers.installDeps) {
+        spinner.text = "Installing dependencies...\n";
+        spinner.color = "yellow";
+        await execPromise(`cd ${projectName} && npm install`);
       }
+
+      spinner.stop();
+      this.logger.success(`Project created successfully..!\n`);
+
+      this.logger.log("To get started, run the following commands:");
+
+      this.logger.log(`cd ${projectName}`);
+      this.logger.log("npm run dev");
+
+      this.logger.warn(
+        "Check if any devDependencies are missing and install them manually",
+      );
     } catch (error) {
-      this.logger.error("Error creating project", error);
+      ora().fail();
+      this.logger.error("\nError creating project", error);
     }
   }
 }

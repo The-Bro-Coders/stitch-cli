@@ -8,24 +8,24 @@ class Logger {
   }
 
   info(message: string): string {
-    const logMessage = ` [INFO] ${message}`;
+    const logMessage = `[INFO] ${message}`;
     console.log(chalk.blue(logMessage));
     return logMessage;
   }
   success(message: string): string {
-    const logMessage = ` [SUCCESS] ${message}`;
+    const logMessage = `[SUCCESS] ${message}`;
     console.log(chalk.green(logMessage));
     return logMessage;
   }
 
   warn(message: string): string {
-    const logMessage = ` [WARN] ${message}`;
+    const logMessage = `[WARN] ${message}`;
     console.log(chalk.yellow(logMessage));
     return logMessage;
   }
 
   error(message: string, error?: any): string {
-    const logMessage = ` [ERROR] ${message}`;
+    const logMessage = `[ERROR] ${message}`;
     console.log(chalk.red(logMessage + "\n" + error?.message));
     return logMessage;
   }
